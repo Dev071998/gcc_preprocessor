@@ -39,14 +39,23 @@ void main()
 	char *temporary=remove_comment(temp,fp2,fsize);
 	rewind(fp2);
 //////////////////////////////////////////////////////////
-	printf("%s\n",temporary);
 	fputs(temporary,fp3);
-
+	fclose(fp3);
 	free(temporary);
-	free(temp);
+	// free(temp);
 
-	remove("dev");
-	rename("deva","dev");
+	// remove("dev");
+	// rename("deva","dev");
+/////////////////////////////////////////////////////////-end comment remove 
+////////////////////////////////////////////////////////-start header file insertion
+	
+	fp1=fopen("deva","r+");
+	temp=malloc(sizeof(char)*fsize);
+	for(int i=0;i<fsize;i++)
+		temp[i]=0;
+	copy_into_string(fp1,temp);
+	printf("%s\n",temp);
+
 }
 
 /*----------------print content of the file-------------*/
@@ -118,3 +127,14 @@ char *remove_comment(char *temp, FILE *fp,int fsize)
 	}
 	return temporary;
 }
+
+
+
+/*-------------fetch_header_word----------------------------*/
+void fetch_word(char *temp, char *header)
+{
+
+}
+
+/*---------------header file include------------------------*/
+// void header_include()
