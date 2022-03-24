@@ -65,7 +65,7 @@ void main()
 	fp2=fopen("/usr/include/stdio.h","r");
 	int header_size=f_size(fp2);
 	rewind(fp2);
-	char *temp_header=malloc(header_size+10);
+	char *temp_header=malloc(header_size+1000);
 	copy_into_string(fp2,temp_header);
 	rewind(fp2);
 
@@ -74,7 +74,8 @@ void main()
 	header_include(temp,header,temp_header);
 	rewind(fp2);
 
-	printf("%s\n",temp);
+	fputs(temp,fp1);
+
 
 
 }
@@ -180,5 +181,4 @@ void header_include(char *temp, char *header, char *temp_header)
 		memmove(addr+strlen(temp_header),addr+strlen(header),strlen(addr)-strlen(header)+1);
 		memcpy(addr,temp_header,strlen(temp_header));
 	}
-	printf("%s\n",temp);
 }
