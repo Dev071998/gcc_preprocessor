@@ -49,16 +49,16 @@ void main()
 	rename("deva","dev");
 }
 
-//========================================================
-//========================================================
+/*----------------print content of the file-------------*/
 void print(FILE *fp)
 {
 	char ch;
 	while((ch=fgetc(fp)) != EOF)
 		printf("%c",ch);
 }
-//========================================================
 
+
+/*----------copy the data into another file------------*/
 void copy_into_other_file(FILE *fp1,FILE *fp2)
 {
 	char ch;
@@ -67,8 +67,9 @@ void copy_into_other_file(FILE *fp1,FILE *fp2)
 		fputc(ch,fp2);
 	}
 }
-//========================================================
 
+
+/*------------find the size of file--------------------*/
 int f_size(FILE *fp)
 {
 	char ch;
@@ -79,8 +80,9 @@ int f_size(FILE *fp)
 	return count;
 
 }
-//=========================================================
 
+
+/*------------copy file data into string----------------*/
 void copy_into_string(FILE *fp,char *temp)
 {
 	char ch;
@@ -88,8 +90,10 @@ void copy_into_string(FILE *fp,char *temp)
 	while((ch=fgetc(fp)) != EOF)
 		temp[i++]=ch;
 }
-//=========================================================
 
+
+
+/*------------remove comment from code-----------------*/
 char *remove_comment(char *temp, FILE *fp,int fsize)
 {
 	char *temporary=malloc(sizeof(char)*fsize);
@@ -114,9 +118,3 @@ char *remove_comment(char *temp, FILE *fp,int fsize)
 	}
 	return temporary;
 }
-/*	
-  /\
- //\\
-//==\\==========================================================
-
-*/
