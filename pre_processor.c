@@ -1,13 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-void print(FILE *);
-void copy_into_other_file(FILE *, FILE *);
-int f_size(FILE *);
-void copy_into_string(FILE *,char *);
-char *remove_comment(char *,FILE *,int);
-void fetch_word(char *, char *);
-void header_include(char *, char *, char *);
+#include "header.h"
+
 void main()
 {
 	char fname[100];
@@ -17,17 +9,31 @@ void main()
 //////////////////////////////////////////////////////////////
 	
 	FILE *fp1=fopen(fname,"r");
-	// print(fp1);
+	if(fp1==NULL)
+	{
+		printf("file is not present\n");
+		exit(1);
+	}
 	rewind(fp1);
 /////////////////////////////////////////////////////////////
 
 	FILE *fp2=fopen("dev","w");
+	if(fp2==NULL)
+	{
+		printf("file is not present\n");
+		exit(1);
+	}
 	copy_into_other_file(fp1,fp2);
 	fclose(fp1);
 	fclose(fp2);
 ////////////////////////////////////////////////////////////
 
 	fp2=fopen("dev","r+");
+	if(fp2==NULL)
+	{
+		printf("file is not present\n");
+		exit(1);
+	}
 	int fsize=f_size(fp2);
 	rewind(fp2);
 ////////////////////////////////////////////////////////////
@@ -39,20 +45,27 @@ void main()
 ///////////////////////////////////////////////////////////
 
 	FILE *fp3=fopen("deva","w");
+	if(fp3==NULL)
+	{
+		printf("file is not present\n");
+		exit(1);
+	}
 	char *temporary=remove_comment(temp,fp2,fsize);
 	rewind(fp2);
 //////////////////////////////////////////////////////////
+
 	fputs(temporary,fp3);
 	fclose(fp3);
 	free(temporary);
-	// free(temp);
-
-	// remove("dev");
-	// rename("deva","dev");
 /////////////////////////////////////////////////////////-end comment remove 
 ////////////////////////////////////////////////////////-start header file insertion
 	
 	fp1=fopen("deva","r+");
+	if(fp1==NULL)
+	{
+		printf("file is not present\n");
+		exit(1);
+	}
 	temp=malloc(sizeof(char)*fsize);
 	for(int i=0;i<fsize;i++)
 		temp[i]=0;
@@ -63,6 +76,11 @@ void main()
 	printf("%s\n",header);
 
 	fp2=fopen("/usr/include/stdio.h","r");
+	if(fp2==NULL)
+	{
+		printf("file is not present\n");
+		exit(1);
+	}
 	int header_size=f_size(fp2);
 	rewind(fp2);
 	char *temp_header=malloc(header_size+1000);
@@ -76,7 +94,13 @@ void main()
 
 	fputs(temp,fp1);
 
+	// free(temp);
 
+	remove("dev");
+	rename("deva","dev");
+//////////////////////////////////////////////////////////-end header 
+/////////////////////////////////////////////////////////-start macro
+	
 
 }
 
@@ -182,3 +206,5 @@ void header_include(char *temp, char *header, char *temp_header)
 		memcpy(addr,temp_header,strlen(temp_header));
 	}
 }
+
+/*--------------------macro replacement--------------------*/
